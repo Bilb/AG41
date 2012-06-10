@@ -1,0 +1,86 @@
+	/** Retourne une solution mutée à partir de parent, celle ci est une mutation sur la sequence de production de 1
+	 * On modifie la solutionMutée en ajoutant une unité quelques part au hasard et on enlevant une, autre part
+	 **/
+	public Solution mutationProductionSimple() {
+		Solution solMutee = new Solution(slpb); /* La solution mutée qu'on retourne */
+		
+		int indice1,indice2; /* Les deux indices dont les valeurs vont mutés */
+		
+		/* On tire le premier indice que l'on veut muter, au hasard */
+		Random generator = new Random();
+		/* Il est valable uniquement si on peut lui ajouter un élément, donc que sa valeur +1 ne dépasse pas la taille du problème */
+		do {
+			indice1 = generator.nextInt(productionSequenceMT.size());
+		} while(getProductionBatchSize(indice1)>=slpb.getNp()); //TODO Atention; pb si on  a qu'un chgrt, on va boucler tout le temps, sans trouver ou muter
+		
+		/* De même pour le deuxième indice, mais pour celui là, il faut vérifier qu'on peut lui soustraire une unité 
+		 * et qu'il n'est pas le même que le premier, sinon ce serait pas une mutation! */
+		do {
+			indice2 = generator.nextInt(productionSequenceMT.size());
+		} while(indice2==indice1 || getProductionBatchSize(indice2)<1);
+		
+		
+		/* Ici, on applique les mutations */
+		for(int indice=0;indice<productionSequenceMT.size();indice++) {
+			if(indice==indice1)
+				solMutee.addProductionLast((getProductionBatchSize(indice1)+1));
+			else if(indice==indice2)
+				solMutee.addProductionLast((getProductionBatchSize(indice2)-1));
+			else
+				solMutee.addProductionLast(getProductionBatchSize(indice));
+			
+			
+		}
+		
+		// On garde la livraison tel quel, en recopiant simplement tout le vector dans celui de la solution mutée
+		for(int i=0;i<deliverySequenceMT.size();i++) {
+			solMutee.addDelivery(i, getProductionBatchSize(i));
+		}
+		
+		solMutee.evaluate(); //TODO evaluate modifiée pour optimisation? et recopie de tous les attributs des solutions dans ce cas
+		return solMutee;
+	}
+	
+	
+	
+	
+	/** Retourne une solution mutée à partir de parent. Elle échange deux valeurs dans les lots. Au hasard
+	 *	@return solMutee :  la solution mutée 
+	 **/
+	public Solution mutationProductionEchange() {
+		Solution solMutee = new Solution(slpb); // La solution que l'on va retourner
+		/* Les deux indices dont on va échanger les valeurs*/
+		int indice1,indice2;
+		
+		/* On tire au hasard le premier indice dont on va échanger la valeur */
+		Random generator = new Random();	
+		indice1 = generator.nextInt(productionSequenceMT.size());
+		
+		/* même chose pour le 2, mais on vérifie que les deux indices ne sont pas les mêmes
+		 * Sinon ce ne serait pas une mutation!
+		 */
+		do {
+			indice2 = generator.nextInt(productionSequenceMT.size());
+		} while(indice2==indice1);
+		
+		/* Ici, on recopie le tableau de production de la Solution parente,
+		 * mais en échangeant les valeurs des deux indices selectionnés
+		 */
+		for(int indice=0;indice<productionSequenceMT.size();indice++) {
+			if(indice==indice1) 
+				solMutee.addProductionLast(getProductionBatchSize(indice2));
+			else if(indice==indice2)
+				solMutee.addProductionLast(getProductionBatchSize(indice1));
+			else
+				solMutee.addProductionLast(getProductionBatchSize(indice));			
+		}
+		
+		/* Par contre, le tableau de livraison de change pas, on le recopie simplement.*/
+		for(int i=0;i<this.deliverySequenceMT.size();i++) {
+			solMutee.addDeliveryLast(getDeliveryBatchSize(i));
+		}
+		
+		 //TODO evaluate modifiée pour optimisation? et recopie de tous les attributs des solutions dans ce cas
+		solMutee.evaluate();
+		return solMutee;
+	}	
