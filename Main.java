@@ -47,6 +47,5 @@ public class Main {
 		System.out.println("Population :" +p);
 		System.out.println("\n\nSolution tirée : "+p.selection_ranking() + "capacity transporter = "+pb.getTransporter().getCapacity());
 
-//TESTR
    }
 }
