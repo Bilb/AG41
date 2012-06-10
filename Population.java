@@ -122,8 +122,7 @@ public class Population {
 	
 	
 	
-
-	public Solution selection_ranking() {
+	public Solution selection_ranking(Solution s) {
 		//reordonner plutot que ordonner?
 		ordonner();
 		Random generator = new Random();

@@ -390,6 +390,10 @@ public class Solution {
 		return solMutee;
 	}
 	
+
+	
+	
+	
 	
 	/**	Copy DeliverySequence and ProductionSequence to a new Solution.
 	 * 	Note: no call to evaluate. You should call it to evaluate the solution

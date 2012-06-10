@@ -45,6 +45,7 @@ public class Main {
 
 		Population p = new Population(5,pb);
 		System.out.println("Population :" +p);
+		
 		System.out.println("\n\nSolution tirée : "+p.selection_ranking() + "capacity transporter = "+pb.getTransporter().getCapacity());
 
    }
