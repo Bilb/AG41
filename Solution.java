@@ -391,6 +391,43 @@ public class Solution {
 	}
 	
 	
+	/**
+	 * Opérateur de croisement : L'opérateur prend au hasard un lot de la première productionSequenceMT et l'ajoute à la nouvelle productionSequenceMT, elle fait de même sur la deuxième et ainsi de suite.
+	 * @param : s solution
+	 * @return : newS solution 
+	 */
+	
+	public Solution crossover(Solution sol2) {
+		int restOfproduct= slpb.getNp(), indice1, indice2;
+		Solution newSol= new Solution();
+		Random generator = new Random();
+		Vector prod1= new Vector(this.productionSequenceMT);
+		Vector prod2= new Vector(sol2.productionSequenceMT);
+		Vector newProd= newSol.productionSequenceMT;
+		while(!prod1.isEmpty()||!prod2.isEmpty()) {
+			if(!prod1.isEmpty()) {
+				indice1 = generator.nextInt(prod1.size());
+				if(prod1(indice1)<=restOfProduct) {
+					newProd.add(prod1[indice1]);
+					restOfproduct-=prod1[indice1];
+				}
+				prod1.remove(indice1);
+			}
+			
+			if(!prod2.isEmpty()) {
+				indice2 = generator.nextInt(prod2.size());
+				if(prod2(indice2)<=restOfProduct) {
+					newProd.add(prod2[indice2]);
+					restOfproduct-=prod2[indice2];
+				}
+				prod2.remove(indice2);
+			}
+		}
+		if(restOfproduct!=0)
+			newProd.add(restOfProduct);
+		}
+	
+	
 	/**	Copy DeliverySequence and ProductionSequence to a new Solution.
 	 * 	Note: no call to evaluate. You should call it to evaluate the solution
 	 * @return : a copy of the input solution
