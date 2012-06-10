@@ -60,6 +60,7 @@ public class Population {
 		for (int i=0; i<nbSolution;i++)	
 			pop[i] = sol;
 	}
+
 		
 	
 	
