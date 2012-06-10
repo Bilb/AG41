@@ -26,6 +26,15 @@ import org.w3c.dom.events.MutationEvent;
  * @date 23 mai 2012
  *
  */
+
+/* Choses à implémenter:
+ *		- mutationDeliverySequence (fusion et fission), attention à prendre en compte capacité du transporter. voir fission de production
+ *		- Opérateurs de croisement
+ *		- AE : 
+ *		- operateur d'egalité entre 2 solutions
+ *		- operateur de remplacement, il faut se renseigner, voir TP AE
+ *		- optimiser : fonction :  boucle principale, effectuant un nombre de générations + d'autres critères d'arrêt à implementer.
+ */	
 public class Main {
 
 	// ----------------------------------------
